@@ -9,8 +9,13 @@ spec:
   - name: webserver
     image: nginx
   - name: sidecar
-    image: fluent/fluentd
-
+    image: prom/node-exporter
+    ports:
+      - containerPort: 9100
+        name: metrics
+      # Optional: configure arguments to set metrics options
+    args:
+      - "--path.rootfs=/host"
 ---
 
 apiVersion: apps/v1
