@@ -8,9 +8,14 @@ spec:
   containers:
   - name: webserver
     image: nginx
-  - name: sidecar
-    image: fluent/fluentd
-
+  - name: sidecar-metrics
+      image: prom/node-exporter
+      ports:
+        - containerPort: 9100
+          name: metrics
+      # Optional: arguments for Prometheus Node Exporter configuration
+      args:
+        - "--path.rootfs=/host"
 ---
 
 apiVersion: apps/v1
